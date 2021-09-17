@@ -1,0 +1,25 @@
+{
+  "version": "1.0",
+  "defaultProvider": "unpkg",
+  "libraries": [
+    {
+      "library": "html2pdf@0.0.11",
+      "destination": "wwwroot/js/html2pdf/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "html2pdf.js@0.9.3",
+      "destination": "wwwroot/js/html2pdf.js/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "FileSaver.js@2.0.5",
+      "destination": "wwwroot/FileSaver.js/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "paginationjs@2.1.5",
+      "destination": "wwwroot/paginationjs/"
+    }
+  ]
+}

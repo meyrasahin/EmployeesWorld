@@ -1,0 +1,237 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    li {
+        margin-right: 30px;
+        display: flex;
+        justify-content: center;
+    }
+
+    ul {
+        margin-right: 30px;
+        display: flex;
+        justify-content: center;
+    }
+</style>
+<section class="py-11 bg-light-gradient border-bottom border-white border-5">
+    <div class="bg-holder overlay overlay-light" style="background-image: url(/template/public/assets/img/gallery/header-bgx.png); background-size: cover;">
+    </div>
+    <!--/.bg-holder-->
+
+
+    <div class="container">
+        <div class="row flex-center">
+            <div class="col-12 mb-10">
+                <div class="d-flex align-items-center flex-column">
+                    <h1 class="fs-4 fs-lg-8 fs-md-6 fw-bold"> sometimes </h1>
+                    <h2 class="fw-normal"> it's the very people who no one imagines anything of who do the things </h2>
+                    <h1 class="fs-4 fs-lg-8 fs-md-6 fw-bold">no one can imagine</h1>
+
+                </div>
+                <h5><span class="fw-normal" style="display:flex; justify-content:flex-end">'Alan Turing'</span></h5>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="py-0" id="header" style="margin-top: -23rem !important;">
+
+    <div class="container">
+        <div class="row g-0">
+            <div class="col-md-6">
+                <div class="card card-span h-100 text-white">
+                    <img class="img-fluid" src="~/template/public/assets/img/gallery/employee.png" width="790" alt="..." />
+                    <div class="card-img-overlay d-flex flex-center"> <a class="btn btn-lg btn-light" href="/Employee/Index/">Employees</a></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card card-span h-100 text-white">
+                    <img class="img-fluid" src="~/template/public/assets/img/gallery/department.png" width="790" alt="..." />
+                    <div class="card-img-overlay d-flex flex-center"> <a class="btn btn-lg btn-light" href="/Employee/ListDepartments/">Departments</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<br />
+<br />
+
+<section>
+    <div class="row" style="margin-left:20px; margin-right:20px">
+        <div class="col-4">
+            <div class="form-floating">
+                <input type="text" class="form-control" id="nameFilter">
+                <label for="nameFilter">Name</label>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-floating">
+                <input type="text" class="form-control" id="titleFilter">
+                <label for="titleFilter">Job Title</label>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-floating">
+                <input type="text" class="form-control" id="locationFilter">
+                <label for="locationFilter">Location</label>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="btn-group" style="display:flex; margin-left:400px; margin-right:400px">
+        <button class="btn btn-outline-secondary" type="button" id="searchButton" onclick="sendData()">Search</button>
+        <button class="btn btn-outline-secondary" type="button" id="clearButton" onclick="clearData()">Clear</button>
+    </div>
+    <br>
+    <div>
+        <div id="result">
+
+        </div>
+        <nav aria-label="Page navigation example" id="navPart">
+
+        </nav>
+    </div>
+
+
+</section>
+
+<script>
+    var page;
+    var data;
+    var itemPerPage = 1;
+    function sendData() {
+
+        var resultDiv = document.getElementById('result');
+        try {
+            if (resultDiv.hasChildNodes) {
+                resultDiv.firstChild.remove();
+            }
+        } catch (e) {
+            console.log("hataa");
+        }
+        
+        
+        var navDiv = document.getElementById('navPart');
+        if (navDiv.hasChildNodes) {
+            navDiv.firstChild.remove();
+        }
+
+        var name = document.getElementById('nameFilter').value;
+        var title = document.getElementById('titleFilter').value;
+        var location = document.getElementById('locationFilter').value;
+
+        $.ajax({
+            url: "/Home/GetFilters/",
+            data: {
+                nameFilter: name,
+                titleFilter: title,
+                locationFilter: location
+            }
+        }).done(function (dataa) {
+            
+            if (dataa.length <= itemPerPage) {
+                const newDiv = document.createElement("div");
+                newDiv.innerHTML += '<div class="container-fluid container-lg">';
+
+                for (let j = 0; j < dataa.length; j++) {
+                    newDiv.innerHTML += '<div class="row h-100 g-2 justify-content-center"><div class="col-sm-9 col-md-4 mb-3 mb-md-0 h-100"><div class="card card-span text-white h-100"><img class="img-card h-100" src="/template/public/assets/img/gallery/' + dataa[j].image + '" alt="..." /><div class="card-body px-xl-5 px-md-3 pt-0 pb-7"><h3 class="fw-bold text-1000 mt-5 text-truncate">' + dataa[j].name + '</h3><p class="text-900 mt-3">' + dataa[j].title + ' - ' + dataa[j].location + ' </p><a class="btn btn-lg text-900 fs-1 px-0 hvr-icon-forward" href="/Employee/Details/' + dataa[j].id + '/" role="button">Read more<svg class="bi bi-arrow-right-short hover-icon" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"> </path></svg></a></div></div></div></div >';
+                }
+                newDiv.innerHTML += '</div >';
+                var resultDiv = document.getElementById('result');
+                resultDiv.appendChild(newDiv);
+
+                var navDiv = document.getElementById('navPart');
+                const newUl = document.createElement("ul");
+                newUl.setAttribute("class", "pagination");
+                newUl.innerHTML = '<li class="page-item"><a class="page-link"  aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
+                data = dataa;
+                for (let i = 1; i < dataa.length / itemPerPage + 1; i++) {
+                    page = i;
+                    newUl.innerHTML += '<li class="page-item"><a class="page-link" >' + i + '</a></li>';
+                }
+
+                newUl.innerHTML += '<a class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>';
+                navDiv.appendChild(newUl);
+
+
+            }
+            else {
+                const newDiv = document.createElement("div");
+                newDiv.innerHTML += '<div class="container-fluid container-lg">';
+
+                for (let j = 0; j < itemPerPage; j++) {
+                    newDiv.innerHTML += '<div class="row h-100 g-2 justify-content-center"><div class="col-sm-9 col-md-4 mb-3 mb-md-0 h-100"><div class="card card-span text-white h-100"><img class="img-card h-100" src="/template/public/assets/img/gallery/' + dataa[j].image + '" alt="..." /><div class="card-body px-xl-5 px-md-3 pt-0 pb-7"><h3 class="fw-bold text-1000 mt-5 text-truncate">' + dataa[j].name + '</h3><p class="text-900 mt-3">' + dataa[j].title + ' - ' + dataa[j].location + ' </p><a class="btn btn-lg text-900 fs-1 px-0 hvr-icon-forward" href="/Employee/Details/' + dataa[j].id + '/" role="button">Read more<svg class="bi bi-arrow-right-short hover-icon" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"> </path></svg></a></div></div></div></div >';
+                }
+                newDiv.innerHTML += '</div >';
+                var resultDiv = document.getElementById('result');
+                resultDiv.appendChild(newDiv);
+
+
+                var navDiv = document.getElementById('navPart');
+                const newUl = document.createElement("ul");
+                newUl.setAttribute("class", "pagination");
+                newUl.innerHTML = '<li class="page-item"><a class="page-link"  aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
+                data = dataa;
+                for (let i = 1; i < dataa.length / itemPerPage + 1; i++) {
+                    page = i;
+                    newUl.innerHTML += '<li class="page-item"><a class="page-link" onclick="showCards(' + i + ')">' + i + '</a></li>';
+                }
+
+                newUl.innerHTML += '<a class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>';
+                navDiv.appendChild(newUl);
+            }
+        });
+
+    }
+
+
+
+    function clearData() {
+        document.getElementById('nameFilter').value = "";
+        document.getElementById('titleFilter').value = "";
+        document.getElementById('locationFilter').value = "";
+
+        var navPart = document.querySelector('#navPart > ul');
+        if (navPart != null) {
+            navPart.style.visibility = "hidden";
+        }
+        
+
+        
+        var resultDiv = document.getElementById('result');
+        if (resultDiv.hasChildNodes()) {
+            resultDiv.firstChild.remove();
+        }
+
+    }
+    function showCards(page) {
+        console.log("Page: ", page);
+        console.log("Data: ", data);
+        var resultDiv = document.getElementById('result');
+        if (resultDiv.hasChildNodes()) {
+            resultDiv.firstChild.remove();
+        }
+
+        const newDiv = document.createElement("div");
+        newDiv.innerHTML += '<div class="container-fluid container-lg">';
+
+        for (let j = page; j < page + itemPerPage; j++) {
+            
+            newDiv.innerHTML = '<div class="row h-100 g-2 justify-content-center"><div class="col-sm-9 col-md-4 mb-3 mb-md-0 h-100"><div class="card card-span text-white h-100"><img class="img-card h-100" src="/template/public/assets/img/gallery/' + data[j-1].image + '" alt="..." /><div class="card-body px-xl-5 px-md-3 pt-0 pb-7"><h3 class="fw-bold text-1000 mt-5 text-truncate">' + data[j-1].name + '</h3><p class="text-900 mt-3">' + data[j-1].title + ' - ' + data[j-1].location + ' </p><a class="btn btn-lg text-900 fs-1 px-0 hvr-icon-forward" href="/Employee/Details/' + data[j-1].id + '/" role="button">Read more<svg class="bi bi-arrow-right-short hover-icon" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"> </path></svg></a></div></div></div></div >';
+        }
+        newDiv.innerHTML += '</div >';
+        var resultDiv = document.getElementById('result');
+        resultDiv.appendChild(newDiv);
+
+        
+    }
+
+    
+
+</script>

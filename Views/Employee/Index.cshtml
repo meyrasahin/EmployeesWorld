@@ -1,0 +1,59 @@
+﻿@model List<EmployeesWorld.Models.Employee>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.0/css/jquery.dataTables.css">
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.js"></script>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<div class="container">
+    <table id="table_id" class="display">
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>Job Title</th>
+                <th>Employee Location</th>
+                <th>Details</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderBy(x => x.Name))
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Title</td>
+                    <td>@item.Location</td>
+                    <td><a href="/Employee/Details/@item.Id" class="btn" style="background-color:#efc560; color:white">Details</a></td>
+                    <td><a href="/Employee/Update/@item.Id" class="btn" style="background-color:#13e672; color:white">Update</a></td>
+                    <td><a href="/Employee/Delete/@item.Id" class="btn" style="background-color: #b583fc; color: white">Delete</a></td>
+                </tr>
+
+            }
+        </tbody>
+
+    </table>
+    <br />
+    <a href="/Employee/Create/" class="btn btn-default" style="background-color:#6ecbc8">New Employee</a>
+</div>
+
+
+<br />
+<br />
+<br />
+<br />
+
+<script>
+    $(document).ready(function () {
+        $('#table_id').DataTable();
+    });
+</script>
