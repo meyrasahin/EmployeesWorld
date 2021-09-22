@@ -1,0 +1,3 @@
+# EmployeesWorld
+
+There are so many employees in a company that people are no longer aware of each other. Meanwhile, this web application is being developed. In this application, you can search employees by name, title, location. You can go to their page to get more detailed information about the person you are looking for. Login people (human resources) can update the employee's detail pages or remove the employee from this application. This project was my internship project. I learned ASP.Net Core framework in a short time and developed this project with the MVC approach. I will make improvements on it in the coming days.
