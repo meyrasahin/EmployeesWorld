@@ -14,28 +14,25 @@
 <br />
 <br />
 
-<div class="container">
+<div class="container" style="padding-right: 100px;padding-left: 100px;">
     <table id="table_id" class="display">
         <thead>
-            <tr>
-                <th>Employee Name</th>
+            <tr class="text text-center">
+                <th>Photo</th>
+                <th>Name</th>
                 <th>Job Title</th>
-                <th>Employee Location</th>
-                <th>Details</th>
-                <th>Update</th>
-                <th>Delete</th>
+                <th>Location</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model.OrderBy(x => x.Name))
             {
                 <tr>
-                    <td>@item.Name</td>
-                    <td>@item.Title</td>
-                    <td>@item.Location</td>
-                    <td><a href="/Employee/Details/@item.Id" class="btn" style="background-color:#efc560; color:white">Details</a></td>
-                    <td><a href="/Employee/Update/@item.Id" class="btn" style="background-color:#13e672; color:white">Update</a></td>
-                    <td><a href="/Employee/Delete/@item.Id" class="btn" style="background-color: #b583fc; color: white">Delete</a></td>
+                    <td><a class="text" href="/Employee/Details/@item.Id"><img class="img-fluid" src="~/template/public/assets/img/gallery/@item.Image" width="70" alt="..." /></a>
+                    </td>
+                    <td><a class="text" href="/Employee/Details/@item.Id">@item.Name</a></td>
+                    <td><a class="text" href="/Employee/Details/@item.Id">@item.Title</a></td>
+                    <td><a class="text" href="/Employee/Details/@item.Id">@item.Location</a></td>
                 </tr>
 
             }

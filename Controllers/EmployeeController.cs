@@ -24,13 +24,25 @@ namespace EmployeesWorld.Controllers
             }
         }
         
-        
         [AllowAnonymous]
         public IActionResult ListDepartments()
         {
-            return View(repo.TList());
+            ViewBag.allEmployees = repo.TList();
+            return View(getTitles(repo.TList()));
         }
-        
+
+        private List<string> getTitles(List<Employee> liste)
+        {
+            var toBeReturned = new List<string>();
+            foreach (var item in liste)
+            {
+                if (!toBeReturned.Contains(item.Title))
+                {
+                    toBeReturned.Add(item.Title);
+                }
+            }
+            return toBeReturned;
+        }
         [AllowAnonymous]
         public IActionResult Details(int id)
         {

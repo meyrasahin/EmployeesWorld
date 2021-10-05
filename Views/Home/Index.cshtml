@@ -16,16 +16,32 @@
         display: flex;
         justify-content: center;
     }
+
+    .card {
+        display: flex;
+        justify-content: center;
+        height: 350px;
+    }
+
+    .img-card{
+        align-self:center;
+        width:270px;
+    }
+
+    .h-100 {
+        margin-right:0px;
+    }
 </style>
-<section class="py-11 bg-light-gradient border-bottom border-white border-5">
-    <div class="bg-holder overlay overlay-light" style="background-image: url(/template/public/assets/img/gallery/header-bgx.png); background-size: cover;">
+
+<section class="py-11 bg-light-gradient ">
+    <div class="bg-holder overlay overlay-light" style="background-image: url(/template/public/assets/img/gallery/footwear.jpg); background-size: cover;">
     </div>
     <!--/.bg-holder-->
 
-
-    <div class="container">
+    
+    <div class="container" style="height:170px">
         <div class="row flex-center">
-            <div class="col-12 mb-10">
+            <div class="col-12 mb-10" style="margin-top:-50px">
                 <div class="d-flex align-items-center flex-column">
                     <h1 class="fs-4 fs-lg-8 fs-md-6 fw-bold"> sometimes </h1>
                     <h2 class="fw-normal"> it's the very people who no one imagines anything of who do the things </h2>
@@ -37,7 +53,7 @@
         </div>
     </div>
 </section>
-<section class="py-0" id="header" style="margin-top: -23rem !important;">
+<section class="py-0" id="header" >
 
     <div class="container">
         <div class="row g-0">
@@ -140,7 +156,7 @@
                 newDiv.innerHTML += '<div class="container-fluid container-lg">';
 
                 for (let j = 0; j < dataa.length; j++) {
-                    newDiv.innerHTML += '<div class="row h-100 g-2 justify-content-center"><div class="col-sm-9 col-md-4 mb-3 mb-md-0 h-100"><div class="card card-span text-white h-100"><img class="img-card h-100" src="/template/public/assets/img/gallery/' + dataa[j].image + '" alt="..." /><div class="card-body px-xl-5 px-md-3 pt-0 pb-7"><h3 class="fw-bold text-1000 mt-5 text-truncate">' + dataa[j].name + '</h3><p class="text-900 mt-3">' + dataa[j].title + ' - ' + dataa[j].location + ' </p><a class="btn btn-lg text-900 fs-1 px-0 hvr-icon-forward" href="/Employee/Details/' + dataa[j].id + '/" role="button">Read more<svg class="bi bi-arrow-right-short hover-icon" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"> </path></svg></a></div></div></div></div >';
+                    newDiv.innerHTML += '<div class="row h-100 g-2 justify-content-center" ><div class="col-sm-9 col-md-4 mb-3 mb-md-0 h-100"><div class="card card-span text-white h-100"><img class="img-card h-100" src="/template/public/assets/img/gallery/' + dataa[j].image + '" alt="..." /><div class="card-body px-xl-5 px-md-3 pt-0 pb-7"><h3 class="fw-bold text-1000 mt-5 text-truncate">' + dataa[j].name + '</h3><p class="text-900 mt-3">' + dataa[j].title + ' - ' + dataa[j].location + ' </p><a class="btn btn-lg text-900 fs-1 px-0 hvr-icon-forward" href="/Employee/Details/' + dataa[j].id + '/" role="button">Read more<svg class="bi bi-arrow-right-short hover-icon" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"> </path></svg></a></div></div></div></div >';
                 }
                 newDiv.innerHTML += '</div >';
                 var resultDiv = document.getElementById('result');

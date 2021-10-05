@@ -31,5 +31,6 @@ namespace EmployeesWorld.Repositories
             var item = GenericRepository<Employee>.context.Set<Education>().Where(x => x.EmployeeId == id).ToList();
             return item;
         }
+
     }
 }
